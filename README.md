@@ -83,13 +83,6 @@ The database gives you instant access to 5.6 million puzzles offline!
 3. **Choose Count** - Default is 36 puzzles (4 pages)
 4. **Generate** - Click the button and your PDF downloads automatically
 
-### Rating Guide
-
-- **600-1000**: Beginner (learning basic tactics)
-- **1000-1400**: Intermediate (solid fundamental tactics)
-- **1400-1800**: Advanced (complex combinations)
-- **1800+**: Expert (tournament-level tactics)
-
 ### Popular Themes for Kids
 
 - `mateIn1` - Find checkmate in one move
@@ -105,7 +98,7 @@ The database gives you instant access to 5.6 million puzzles offline!
 - `--theme`: Puzzle theme code (e.g., mateIn2, fork, pin)
 - `--min-rating`: Minimum puzzle rating (default: 800)
 - `--max-rating`: Maximum puzzle rating (default: 1400)
-- `--count`: Number of puzzles to generate (default: 12)
+- `--count`: Number of puzzles to generate (default: 9)
 - `--output`: Output PDF filename (default: puzzles.pdf)
 
 ## How It Works
@@ -153,54 +146,6 @@ This project complies with [Lichess Terms of Service](https://lichess.org/terms-
 - ✅ Respects their open-source philosophy
 - ✅ No commercial monetization
 
-## Publishing & Distribution
-
-### Recommended Platforms
-
-**For Public Use:**
-1. **GitHub** - Host the code publicly with clear Lichess attribution
-2. **Heroku/Railway/Render** - Deploy free web hosting
-3. **Docker Hub** - Containerized deployment
-4. **Python Package Index (PyPI)** - Distribute as installable package
-
-### Best Practices
-
-**Legal & Ethical:**
-- ✅ Keep it 100% free (respect Lichess's free/libre ethos)
-- ✅ Maintain clear attribution to Lichess.org
-- ✅ Include LICENSE file (MIT recommended for your code)
-- ✅ Note Lichess data license (CC0 1.0) in documentation
-- ✅ Link to Lichess.org for users to explore more
-- ✅ Consider adding a "Support Lichess" link to their patron page
-
-**Technical:**
-- ✅ Clear installation instructions
-- ✅ Document database download (first-time setup)
-- ✅ Include requirements.txt with exact versions
-- ✅ Add .gitignore for lichess_puzzles.csv (too large for git)
-- ✅ Provide Docker support for easy deployment
-- ✅ Include troubleshooting guide
-
-**Community:**
-- ✅ Accept contributions via pull requests
-- ✅ Respond to issues and feedback
-- ✅ Share on chess forums/communities
-- ✅ Consider internationalization (i18n)
-
-### Deployment Example (Heroku)
-
-```bash
-# Add Procfile
-echo "web: python app.py" > Procfile
-
-# Add runtime.txt
-echo "python-3.12.0" > runtime.txt
-
-# Deploy
-heroku create chess-puzzle-printer
-git push heroku main
-```
-
 ## Contributing
 
 Contributions are welcome! This is an open-source project aimed at helping chess education.
@@ -208,7 +153,6 @@ Contributions are welcome! This is an open-source project aimed at helping chess
 ### Ways to Contribute
 - Report bugs or suggest features via GitHub Issues
 - Submit pull requests for improvements
-- Translate the interface to other languages
 - Share with other chess parents and teachers
 - Improve documentation
 
@@ -220,7 +164,7 @@ This app is powered by Lichess's incredible free and open database. If you find 
 - **Using Lichess**: [lichess.org](https://lichess.org) for playing and training
 - **Spreading the word**: Tell other chess players about Lichess
 
-Lichess is a charitable organization that keeps chess free for everyone!
+Lichess is a free, open-source, non-profit project that keeps chess accessible to everyone!
 
 ## Acknowledgments
 

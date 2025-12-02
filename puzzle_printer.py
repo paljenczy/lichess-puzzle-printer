@@ -1058,8 +1058,8 @@ def main():
                        help='Minimum puzzle rating (default: 800)')
     parser.add_argument('--max-rating', type=int, default=1400,
                        help='Maximum puzzle rating (default: 1400)')
-    parser.add_argument('--count', type=int, default=12,
-                       help='Number of puzzles to generate (default: 12)')
+    parser.add_argument('--count', type=int, default=9,
+                       help='Number of puzzles to generate (default: 9)')
     parser.add_argument('--output', type=str, default='puzzles.pdf',
                        help='Output PDF filename (default: puzzles.pdf)')
     
