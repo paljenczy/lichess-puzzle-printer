@@ -1,0 +1,28 @@
+# Lichess puzzle database (large file - downloaded on first run)
+lichess_puzzles.csv
+lichess_db_puzzle.csv.zst
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# Generated PDFs
+*.pdf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
