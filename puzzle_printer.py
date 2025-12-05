@@ -34,10 +34,13 @@ class PuzzleFetcher:
         self.session.headers.update({
             'User-Agent': 'Lichess Puzzle Printer/1.0 (Educational; github.com/yourusername/lichess-puzzles)'
         })
+        self.DATABASE_URL = "https://database.lichess.org/lichess_db_puzzle.csv.zst"
+        self.LOCAL_DB_PATH = "lichess_puzzles.csv"
+        self._puzzle_cache = []
         
     def fetch_puzzles_by_theme(self, theme: str, min_rating: int, max_rating: int, count: int) -> List[Dict]:
         """
-        Fetch puzzles filtered by theme and rating range using Lichess API.
+        Fetch puzzles filtered by theme and rating range from local database.
         
         Args:
             theme: Puzzle theme (e.g., 'mateIn2', 'fork')
@@ -50,49 +53,12 @@ class PuzzleFetcher:
         """
         print(f"Fetching {count} puzzle(s) for theme '{theme}' (rating {min_rating}-{max_rating})...")
         
-        puzzles = []
-        attempts = 0
-        max_attempts = count * 10  # Try up to 10x the requested count to find matches
+        # Load database if not already cached
+        if not self._puzzle_cache:
+            self._load_database()
         
-        # Use the puzzle activity endpoint to get random puzzles
-        try:
-            # Fetch puzzles using the dashboard endpoint which supports filtering
-            url = f"{self.API_BASE}/puzzle/activity"
-            params = {
-                'max': max_attempts,
-            }
-            
-            response = self.session.get(url, params=params, timeout=30)
-            
-            if response.status_code == 200:
-                activity_data = response.json()
-                
-                for entry in activity_data:
-                    if len(puzzles) >= count:
-                        break
-                    
-                    puzzle_data = entry.get('puzzle', {})
-                    puzzle_rating = puzzle_data.get('rating', 0)
-                    puzzle_themes = puzzle_data.get('themes', [])
-                    
-                    # Filter by rating and theme
-                    if puzzle_rating < min_rating or puzzle_rating > max_rating:
-                        continue
-                    
-                    if theme.lower() not in [t.lower() for t in puzzle_themes]:
-                        continue
-                    
-                    puzzles.append(self._format_api_puzzle(puzzle_data))
-            
-            # If we didn't get enough from activity, fall back to fetching random puzzles
-            if len(puzzles) < count:
-                print(f"Found {len(puzzles)} from activity, fetching more random puzzles...")
-                puzzles.extend(self._fetch_random_puzzles(theme, min_rating, max_rating, count - len(puzzles)))
-                
-        except Exception as e:
-            print(f"Error fetching from API: {e}")
-            print("Falling back to random puzzle fetching...")
-            puzzles = self._fetch_random_puzzles(theme, min_rating, max_rating, count)
+        # Sample from cached database
+        puzzles = self._sample_from_cache(theme, min_rating, max_rating, count)
         
         if puzzles:
             print(f"✓ Successfully fetched {len(puzzles)} puzzle(s)")
@@ -200,8 +166,7 @@ class PuzzleFetcher:
             'themes': puzzle_data.get('themes', []),
         }
 
-
-class ChessBoardRenderer:
+    def _load_database(self):
         """Download and load the entire puzzle database into memory."""
         import os
         

@@ -114,7 +114,7 @@ def generate_puzzles():
         theme = data.get('theme', 'mateIn2')
         min_rating = int(data.get('minRating', 800))
         max_rating = int(data.get('maxRating', 1400))
-        count = int(data.get('count', 1))  # Default to 1 for testing
+        count = int(data.get('count', 36))
         
         # Validate ranges
         if min_rating >= max_rating:
